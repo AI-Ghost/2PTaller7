@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FotoArial</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+    }
+
+    .nav-menu {
+      min-width: 200px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <%- include("partials/header") -%>
+
+  <div class="main-content container-fluid">
+    <%-  include("partials/menu")-%>
+
+    <div class="container-fluid p-4">
+      <h1><%= title %></h1>
+
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Titulo</th>
+              <th>Descripcion</th>
+              <th>Calificacion</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% fotos.forEach(foto => { %>
+            <tr>
+              <td><%= foto.id %></td>
+              <td><%= foto.titulo %></td>
+              <td><%= foto.descripcion %></td>
+              <td><%= foto.calificacion %></td>
+              <td>
+                <button type="button" class="btn btn-outline-danger deleteButton" data-id="<%= foto.id %>">Borrar</button>
+                <button type="button" class="btn btn-primary editButton" data-id="<%= foto.id %>" data-titulo="<%= foto.titulo %>" data-descripcion="<%= foto.descripcion %>" data-calificacion="<%= foto.calificacion %>">Editar</button>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <%-  include("partials/footer") -%>
+  </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.deleteButton').forEach(button => {
+        button.addEventListener('click', () => {
+          const id = button.getAttribute('data-id');
+
+          fetch(`/rest/fotos/delete/${id}`, {
+            method: 'DELETE'
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Foto eliminada:', data);
+            location.reload();
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+
+      document.querySelectorAll('.editButton').forEach(button => {
+        button.addEventListener('click', () => {
+          const id = button.getAttribute('data-id');
+          const titulo = button.getAttribute('data-titulo');
+          const descripcion = button.getAttribute('data-descripcion');
+          const calificacion = button.getAttribute('data-calificacion');
+
+          const newTitulo = prompt('Nuevo título:', titulo);
+          const newDescripcion = prompt('Nueva descripción:', descripcion);
+          const newCalificacion = prompt('Nueva calificación:', calificacion);
+
+          if (newTitulo !== null && newDescripcion !== null && newCalificacion !== null) {
+            fetch('/rest/fotos/update', {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                id: id,
+                titulo: newTitulo,
+                descripcion: newDescripcion,
+                calificacion: newCalificacion
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Foto actualizada:', data);
+              location.reload();
+            })
+            .catch(error => console.error('Error:', error));
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
