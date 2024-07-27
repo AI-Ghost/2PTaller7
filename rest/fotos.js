@@ -26,7 +26,6 @@ router.get('/json',
                 res.status(400).send(error))
     });
 
-// view de /json
 router.get('/view', (req, res, next) => {
     Foto.findAll({
         attributes: {
