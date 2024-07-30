@@ -2,43 +2,43 @@ var express = require('express');
 var router = express.Router();
 
 const { Sequelize, Op } = require('sequelize');
-const Foto = require('../models').foto;
-const Etiqueta = require('../models').etiqueta;
+const Usuario = require('../models').usuario;
+const Perfil = require('../models').perfil;
 
 router.get('/json',
     function (req, res, next) {
-        Foto.findAll({
+        Usuario.findAll({
 
             attributes: {
                 exclude:
                     ["updatedAt", "createdAt"]
             },
             include: [{
-                model: Etiqueta,
+                model: Perfil,
                 attributes: ['texto'],
                 through: { attributes: [] }
             }],
         })
-            .then(fotos => {
-                res.json(fotos);
+            .then(usuarios => {
+                res.json(usuarios);
             })
             .catch(error =>
                 res.status(400).send(error))
     });
 
 router.get('/view', (req, res, next) => {
-    Foto.findAll({
+    Usuario.findAll({
         attributes: {
             exclude: ["updatedAt", "createdAt"]
         },
         include: [{
-            model: Etiqueta,
+            model: Perfil,
             attributes: ['texto'],
             through: { attributes: [] }
         }],
     })
-    .then(fotos => {
-        res.render('fotos', { title: 'Fotos', fotos });
+    .then(usuarios => {
+        res.render('usuarios', { title: 'Usuarios', usuarios });
     })
     .catch(error => res.status(400).send(error));
 });
@@ -47,10 +47,10 @@ router.get('/view', (req, res, next) => {
 router.get('/json/:id', function (req, res, next) {
 
     let id = parseInt(req.params.id);
-    Foto.findAll({
+    Usuario.findAll({
         attributes: { exclude: ["updatedAt"] },
         include: [{
-            model: Etiqueta,
+            model: Perfil,
             attributes: ['texto'],
             through: { attributes: [] }
         }],
@@ -58,8 +58,8 @@ router.get('/json/:id', function (req, res, next) {
             id: { [Op.and]: [id] }
         }
     })
-        .then(fotos => {
-            res.json(fotos);
+        .then(usuarios => {
+            res.json(usuarios);
         })
         .catch(error =>
             res.status(400).send(error))
@@ -68,7 +68,7 @@ router.get('/json/:id', function (req, res, next) {
 router.post('/save', function (req, res, next) {
     let { titulo, descripcion,
         calificacion, ruta } = req.body;
-    Foto.create({
+    Usuario.create({
         titulo: titulo,
         descripcion: descripcion,
         calificacion: parseFloat(calificacion),
@@ -77,8 +77,8 @@ router.post('/save', function (req, res, next) {
         updatedAt: new Date()
 
     })
-        .then(foto => {
-            res.json(foto);
+        .then(usuario => {
+            res.json(usuario);
         })
         .catch(error =>
             res.status(400).send(error))
@@ -87,7 +87,7 @@ router.post('/save', function (req, res, next) {
 router.put('/update', function (req, res, next) {
     let { id, titulo, descripcion, calificacion, ruta } =
         req.body;
-    Foto.update({
+    Usuario.update({
         titulo: titulo,
         descripcion: descripcion,
         calificacion: parseFloat(calificacion),
@@ -108,7 +108,7 @@ router.put('/update', function (req, res, next) {
 
 router.delete('/delete/:id', function (req, res, next) {
     let id = parseInt(req.params.id);
-    Foto.destroy({
+    Usuario.destroy({
         where: {
             id: id
         }

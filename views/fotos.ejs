@@ -52,15 +52,15 @@
             </tr>
           </thead>
           <tbody>
-            <% fotos.forEach(foto => { %>
+            <% usuarios.forEach(usuario => { %>
             <tr>
-              <td><%= foto.id %></td>
-              <td><%= foto.titulo %></td>
-              <td><%= foto.descripcion %></td>
-              <td><%= foto.calificacion %></td>
+              <td><%= usuario.id %></td>
+              <td><%= usuario.titulo %></td>
+              <td><%= usuario.descripcion %></td>
+              <td><%= usuario.calificacion %></td>
               <td>
-                <button type="button" class="btn btn-outline-danger deleteButton" data-id="<%= foto.id %>">Borrar</button>
-                <button type="button" class="btn btn-primary editButton" data-id="<%= foto.id %>" data-titulo="<%= foto.titulo %>" data-descripcion="<%= foto.descripcion %>" data-calificacion="<%= foto.calificacion %>">Editar</button>
+                <button type="button" class="btn btn-outline-danger deleteButton" data-id="<%= usuario.id %>">Borrar</button>
+                <button type="button" class="btn btn-primary editButton" data-id="<%= usuario.id %>" data-titulo="<%= usuario.titulo %>" data-descripcion="<%= usuario.descripcion %>" data-calificacion="<%= usuario.calificacion %>">Editar</button>
               </td>
             </tr>
             <% }); %>
@@ -78,12 +78,12 @@
         button.addEventListener('click', () => {
           const id = button.getAttribute('data-id');
 
-          fetch(`/rest/fotos/delete/${id}`, {
+          fetch(`/rest/usuarios/delete/${id}`, {
             method: 'DELETE'
           })
           .then(response => response.json())
           .then(data => {
-            console.log('Foto eliminada:', data);
+            console.log('Usuario eliminada:', data);
             location.reload();
           })
           .catch(error => console.error('Error:', error));
@@ -102,7 +102,7 @@
           const newCalificacion = prompt('Nueva calificación:', calificacion);
 
           if (newTitulo !== null && newDescripcion !== null && newCalificacion !== null) {
-            fetch('/rest/fotos/update', {
+            fetch('/rest/usuarios/update', {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json'
@@ -116,7 +116,7 @@
             })
             .then(response => response.json())
             .then(data => {
-              console.log('Foto actualizada:', data);
+              console.log('Usuario actualizada:', data);
               location.reload();
             })
             .catch(error => console.error('Error:', error));

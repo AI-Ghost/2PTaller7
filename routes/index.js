@@ -8,15 +8,15 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.get('/photos/add', function (req, res, next) {
+router.get('/uusuarios/add', function (req, res, next) {
   res.render('fotos_formulario', { title: 'Express' });
 });
 
-router.get('/photos/delete', function (req, res, next) {
+router.get('/uusuarios/delete', function (req, res, next) {
   res.render('fotos_delete', { title: 'Express' });
 });
 
-router.post('/photos/save', async function (req,
+router.post('/uusuarios/save', async function (req,
   res, next) {
   let { title, description, rate } = req.body
   const URL ='http://localhost:3000/rest/save'
@@ -44,7 +44,7 @@ router.post('/photos/save', async function (req,
 });
 
 
-router.delete('/photos/delete', async function (req, res, next) {
+router.delete('/uusuarios/delete', async function (req, res, next) {
   let { id } = req.body;
 
   const URL = `http://localhost:3000/rest/delete/${id}`;
@@ -65,7 +65,7 @@ router.delete('/photos/delete', async function (req, res, next) {
       res.redirect('/');  
     }
   } catch (error) {
-    console.error('Error al intentar eliminar la foto:', error);
+    console.error('Error al intentar eliminar la usuario:', error);
     res.status(500).send('Error en el servidor');
   }
 });

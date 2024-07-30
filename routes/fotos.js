@@ -3,37 +3,37 @@ var router = express.Router();
 
 // const Sequelize = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
-const Foto = require('../models').foto;
-const Etiqueta = require('../models').etiqueta;
+const Usuario = require('../models').usuario;
+const Perfil = require('../models').perfil;
 
 // router.get('/findAll/json',
 //     function (req, res, next) {
-//         Foto.findAll({
+//         Usuario.findAll({
 //             attributes: { exclude: ["updatedAt"] },
 //             include: [{
-//                 model: Etiqueta,
+//                 model: Perfil,
 //                 attributes: ['texto'],
 //                 through: { attributes: [] }
 //             }],
 //         })
-//             .then(fotos => {
-//                 res.json(fotos);
+//             .then(usuarios => {
+//                 res.json(usuarios);
 //             })
 //             .catch(error =>
 //                 res.status(400).send(error))
 //     });
 
 // router.get('/findAll/view', function (req, res, next) {
-//     Foto.findAll({
+//     Usuario.findAll({
 //         attributes: { exclude: ["updatedAt"] },
 //         include: [{
-//             model: Etiqueta,
+//             model: Perfil,
 //             attributes: ['texto'],
 //             through: { attributes: [] }
 //         }],
 //     })
-//         .then(fotos => {
-//             res.render('fotos', { title: 'Fotos', arrFotos: fotos });
+//         .then(usuarios => {
+//             res.render('usuarios', { title: 'Usuarios', arrFotos: usuarios });
 //         })
 //         .catch(error => res.status(400).send(error))
 // });
@@ -42,12 +42,12 @@ const Etiqueta = require('../models').etiqueta;
 //     let lower = parseFloat(req.query.lower);
 //     let higher = parseFloat(req.query.upper);
 
-//     Foto.findAll({
+//     Usuario.findAll({
 //         attributes: {
 //             exclude: ["updatedAt"]
 //         },
 //         include: [{
-//             model: Etiqueta,
+//             model: Perfil,
 //             attributes: ['texto'],
 //             through: { attributes: [] }
 //         }],
@@ -55,8 +55,8 @@ const Etiqueta = require('../models').etiqueta;
 //             calificacion: { [Op.between]: [lower, higher] }
 //         }
 //     })
-//         .then(fotos => {
-//             res.json(fotos);
+//         .then(usuarios => {
+//             res.json(usuarios);
 //         })
 //         .catch(error =>
 //             res.status(400).send(error))
@@ -66,10 +66,10 @@ const Etiqueta = require('../models').etiqueta;
 // router.get('/findAllByRate/view', function (req, res, next) {
 //     let lower = parseFloat(req.query.lower);
 //     let higher = parseFloat(req.query.upper);
-//     Foto.findAll({
+//     Usuario.findAll({
 //         attributes: { exclude: ["updatedAt"] },
 //         include: [{
-//             model: Etiqueta,
+//             model: Perfil,
 //             attributes: ['texto'],
 //             through: { attributes: [] }
 //         }],
@@ -77,8 +77,8 @@ const Etiqueta = require('../models').etiqueta;
 //             calificacion: { [Op.between]: [lower, higher] }
 //         }
 //     })
-//         .then(fotos => {
-//             res.render('fotos', { title: 'Fotos', arrFotos: fotos });
+//         .then(usuarios => {
+//             res.render('usuarios', { title: 'Usuarios', arrFotos: usuarios });
 //         })
 //         .catch(error => res.status(400).send(error))
     
@@ -88,10 +88,10 @@ const Etiqueta = require('../models').etiqueta;
 // router.get('/findById/:id/json', function (req, res, next) {
 
 //     let id = parseInt(req.params.id);
-//     Foto.findAll({
+//     Usuario.findAll({
 //         attributes: { exclude: ["updatedAt"] },
 //         include: [{
-//             model: Etiqueta,
+//             model: Perfil,
 //             attributes: ['texto'],
 //             through: { attributes: [] }
 //         }],
@@ -99,8 +99,8 @@ const Etiqueta = require('../models').etiqueta;
 //             id: { [Op.and]: [id] }
 //         }
 //     })
-//         .then(fotos => {
-//             res.json(fotos);
+//         .then(usuarios => {
+//             res.json(usuarios);
 //         })
 //         .catch(error =>
 //             res.status(400).send(error))
@@ -109,10 +109,10 @@ const Etiqueta = require('../models').etiqueta;
 
 // router.get('/findById/:id', function (req, res, next) {
 //     let id = parseInt(req.params.id);
-//     Foto.findAll({
+//     Usuario.findAll({
 //         attributes: { exclude: ["updatedAt"] },
 //         include: [{
-//             model: Etiqueta,
+//             model: Perfil,
 //             attributes: ['texto'],
 //             through: { attributes: [] }
 //         }],
@@ -120,8 +120,8 @@ const Etiqueta = require('../models').etiqueta;
 //             id: { [Op.and]: [id] }
 //         }
 //     })
-//         .then(fotos => {
-//             res.render('foto', { title: 'Foto', fotos: fotos });
+//         .then(usuarios => {
+//             res.render('usuario', { title: 'Usuario', usuarios: usuarios });
 //         })
 //         .catch(error => res.status(400).send(error))
 // });
