@@ -9,11 +9,11 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/uusuarios/add', function (req, res, next) {
-  res.render('fotos_formulario', { title: 'Express' });
+  res.render('usuarios_formulario', { title: 'Express' });
 });
 
 router.get('/uusuarios/delete', function (req, res, next) {
-  res.render('fotos_delete', { title: 'Express' });
+  res.render('usuario_delete', { title: 'Express' });
 });
 
 router.post('/uusuarios/save', async function (req,
